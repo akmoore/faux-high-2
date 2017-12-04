@@ -10,7 +10,66 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204182615) do
+ActiveRecord::Schema.define(version: 20171204192532) do
+
+  create_table "courses", force: :cascade do |t|
+    t.string "subject"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fill_blanks", force: :cascade do |t|
+    t.integer "question_id"
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_fill_blanks_on_question_id"
+  end
+
+  create_table "multiple_choices", force: :cascade do |t|
+    t.integer "question_id"
+    t.string "answer"
+    t.boolean "is_true"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_multiple_choices_on_question_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "role"
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "quiz_id"
+    t.text "question"
+    t.string "type"
+    t.integer "point", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.integer "course_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_quizzes_on_course_id"
+  end
+
+  create_table "true_falses", force: :cascade do |t|
+    t.integer "question_id"
+    t.boolean "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_true_falses_on_question_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
